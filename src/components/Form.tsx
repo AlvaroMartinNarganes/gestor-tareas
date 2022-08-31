@@ -1,14 +1,45 @@
 import { useState } from 'react';
-
-const Form = () => {
+import { TaskType } from '../App';
+import ErrorModal from './ErrorModal';
+type Props = {
+  setTask: any;
+  tasks: [TaskType] | [];
+};
+const Form = ({ setTask, tasks }: Props) => {
   const [taskName, setTaskName] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('Alta');
+  const [error, setError] = useState(false);
+
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    //Error
+    if ([taskName, description, priority].includes('')) {
+      setError(true);
+      return;
+    }
+    setError(false);
+    //Create Task
+    const newTask = {
+      taskName,
+      description,
+      priority,
+    };
+    setTask([...tasks, newTask]);
+
+    //Reset form
+    setTaskName('');
+    setDescription('');
+  };
 
   return (
     <div className='md:w-1/2 lg:w-2/5 text-center'>
       <h2 className='font-black text-xl '>Agregar tarea</h2>
-      <form className='mt-5 bg-white shadow-md rounded-md px-5 py-100'>
+      <form
+        className='mt-5 bg-white shadow-md rounded-md px-5 py-10'
+        onSubmit={handleSubmit}
+      >
+        {error && <ErrorModal errLog='Todos los campos son obligatorios' />}
         <div className='mb-5'>
           <label
             className='block text-gray-700 uppercase font-semibold'
