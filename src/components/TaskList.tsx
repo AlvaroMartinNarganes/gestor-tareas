@@ -2,8 +2,9 @@ import { TaskType } from '../App';
 import Task from './Task';
 type Props = {
   tasks: [TaskType] | [];
+  setTask:any
 };
-const TaskList = ({ tasks }: Props) => {
+const TaskList = ({ tasks,setTask }: Props) => {
   return (
     <div className='md:w-1/2 lg:w-3/5 '>
       <h2 className='font-black text-xl text-center mb-5 '>
@@ -18,6 +19,7 @@ const TaskList = ({ tasks }: Props) => {
                 taskName={task.taskName}
                 description={task.description}
                 priority={task.priority}
+                setTask={setTask}
               />
             );
           })}

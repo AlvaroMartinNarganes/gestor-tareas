@@ -10,14 +10,15 @@ export type TaskType = {
 };
 
 function App() {
-  const [tasks, setTask] = useState<[TaskType] | []>([]);
+  const [tasks, setTasks] = useState<[TaskType] | []>([]);
+  const [task, setTask] = useState({})
 
   return (
     <div className='container mx-auto mt-5'>
       <Header />
       <div className='mt-12 md:flex '>
-        <Form setTask={setTask} tasks={tasks} />
-        <TaskList tasks={tasks} />
+        <Form setTasks={setTasks} tasks={tasks} />
+        <TaskList tasks={tasks} setTask={setTask} />
       </div>
     </div>
   );

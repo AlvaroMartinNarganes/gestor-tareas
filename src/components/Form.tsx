@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { TaskType } from '../App';
 import ErrorModal from './ErrorModal';
 type Props = {
-  setTask: any;
+  setTasks: any;
   tasks: [TaskType] | [];
 };
-const Form = ({ setTask, tasks }: Props) => {
+const Form = ({ setTasks, tasks }: Props) => {
   const [taskName, setTaskName] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('Alta');
@@ -25,7 +25,7 @@ const Form = ({ setTask, tasks }: Props) => {
       description,
       priority,
     };
-    setTask([...tasks, newTask]);
+    setTasks([...tasks, newTask]);
 
     //Reset form
     setTaskName('');
