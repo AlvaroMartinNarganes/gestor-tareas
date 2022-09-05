@@ -1,15 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TaskType } from '../App';
 import ErrorModal from './ErrorModal';
 type Props = {
   setTasks: any;
   tasks: [TaskType] | [];
+  task:TaskType| any ;
 };
-const Form = ({ setTasks, tasks }: Props) => {
+const Form = ({ setTasks, tasks,task }: Props) => {
   const [taskName, setTaskName] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('Alta');
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+  if(Object.keys(task).length>0){
+    setTaskName(task.taskName);
+    setDescription(task.description)
+    setPriority(task.priority)
+    
+  }
+  }, [task])
+  
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
