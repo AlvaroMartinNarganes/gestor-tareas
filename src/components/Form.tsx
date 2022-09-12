@@ -3,25 +3,31 @@ import { TaskType } from '../App';
 import ErrorModal from './ErrorModal';
 type Props = {
   setTasks: any;
+  setTask: any;
   tasks: [TaskType] | [];
-  task:TaskType| any ;
+  task: TaskType | any;
 };
-const Form = ({ setTasks, tasks,task }: Props) => {
+const Form = ({ setTasks, setTask, tasks, task }: Props) => {
   const [taskName, setTaskName] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('Alta');
   const [error, setError] = useState(false);
 
+  //Listen the task, if a task change, fill the inputs to edit
   useEffect(() => {
-  if(Object.keys(task).length>0){
-    setTaskName(task.taskName);
-    setDescription(task.description)
-    setPriority(task.priority)
-    
-  }
-  }, [task])
-  
+    if (Object.keys(task).length > 0) {
+      setTaskName(task.taskName);
+      setDescription(task.description);
+      setPriority(task.priority);
+    }
+  }, [task]);
 
+  const generateId = () => {
+    const fecha = Date.now().toString(36);
+    return fecha;
+  };
+
+  //Handle the form before submit
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     //Error
@@ -29,18 +35,33 @@ const Form = ({ setTasks, tasks,task }: Props) => {
       setError(true);
       return;
     }
+
     setError(false);
     //Create Task
     const newTask = {
       taskName,
       description,
       priority,
+      taskId: generateId(),
     };
-    setTasks([...tasks, newTask]);
+
+    if (task.taskId) {
+      //Edit
+      newTask.taskId = task.taskId;
+      const updateTasks = tasks.map((taskState) =>
+        taskState.taskId === task.taskId ? newTask : taskState,
+      );
+
+      setTasks(updateTasks);
+    } else {
+      //New task
+      setTasks([...tasks, newTask]);
+    }
 
     //Reset form
     setTaskName('');
     setDescription('');
+    setTask({});
   };
 
   return (
@@ -96,7 +117,7 @@ const Form = ({ setTasks, tasks,task }: Props) => {
         </div>
         <input
           type='submit'
-          value='Enviar'
+          value={task.taskId ? 'Editar' : 'Enviar'}
           className='bg-indigo-400 w-full py-5 mt-3 text-white font-bold hover:bg-indigo-600  cursor-pointer transition hover:scale-105 rounded-lg'
         />
       </form>
