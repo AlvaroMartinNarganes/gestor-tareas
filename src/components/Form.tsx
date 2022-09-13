@@ -4,7 +4,7 @@ import ErrorModal from './ErrorModal';
 type Props = {
   setTasks: any;
   setTask: any;
-  tasks: [TaskType] | [];
+  tasks: TaskType[] | [];
   task: TaskType | any;
 };
 const Form = ({ setTasks, setTask, tasks, task }: Props) => {

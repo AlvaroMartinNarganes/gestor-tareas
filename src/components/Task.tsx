@@ -1,15 +1,24 @@
 import { useEffect, useState } from 'react';
 
 type Props = {
-  taskName: String;
-  description: String;
-  priority: String;
-  taskId: String;
+  taskName: string;
+  description: string;
+  priority: string;
+  taskId: string;
   setTask: any;
+  deleteTask: (id: string) => void;
 };
-const Task = ({ taskName, description, priority, taskId, setTask }: Props) => {
+
+const Task = ({
+  taskName,
+  description,
+  priority,
+  taskId,
+  setTask,
+  deleteTask,
+}: Props) => {
   const [colorPriority, setColorPriority] = useState('');
-  //Control color
+  //Hook effect to control color
   useEffect(() => {
     if (priority === 'Alta') {
       setColorPriority(
@@ -26,6 +35,7 @@ const Task = ({ taskName, description, priority, taskId, setTask }: Props) => {
     }
   }, [priority]);
 
+  //Function to update a task
   const edit = () => {
     const task = {
       taskName,
@@ -34,6 +44,14 @@ const Task = ({ taskName, description, priority, taskId, setTask }: Props) => {
       taskId,
     };
     setTask(task);
+  };
+
+  //Function to delete a task
+  const handleDelete = () => {
+    const response = confirm('¿Borrar tarea?');
+    if (response) {
+      deleteTask(taskId);
+    }
   };
 
   return (
@@ -56,6 +74,7 @@ const Task = ({ taskName, description, priority, taskId, setTask }: Props) => {
         <button
           className='py-2 px-10 bg-red-500 hover:bg-red-700 font-bold rounded-sm'
           type='button'
+          onClick={handleDelete}
         >
           Eliminar
         </button>

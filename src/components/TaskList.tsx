@@ -1,10 +1,11 @@
 import { TaskType } from '../App';
 import Task from './Task';
 type Props = {
-  tasks: [TaskType] | [];
+  tasks: TaskType[] | [];
   setTask: any;
+  deleteTask: (id: string) => void;
 };
-const TaskList = ({ tasks, setTask }: Props) => {
+const TaskList = ({ tasks, setTask, deleteTask }: Props) => {
   return (
     <div className='md:w-1/2 lg:w-3/5 '>
       <h2 className='font-black text-xl text-center mb-5 '>
@@ -21,6 +22,7 @@ const TaskList = ({ tasks, setTask }: Props) => {
                 priority={task.priority}
                 taskId={task.taskId}
                 setTask={setTask}
+                deleteTask={deleteTask}
               />
             );
           })}
