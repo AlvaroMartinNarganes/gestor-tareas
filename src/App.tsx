@@ -28,7 +28,7 @@ function App() {
   };
 
   return (
-    <div className='container mx-auto mt-5'>
+    <div className='container mx-auto'>
       <Header />
       <div className='mt-12 md:flex '>
         <Form setTasks={setTasks} setTask={setTask} tasks={tasks} task={task} />
