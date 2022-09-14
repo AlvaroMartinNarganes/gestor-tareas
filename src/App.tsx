@@ -12,7 +12,7 @@ export type TaskType = {
 
 function App() {
   const [tasks, setTasks] = useState<TaskType[] | []>(
-    JSON.parse(localStorage.getItem('tasks') || '{}'), //Start the app with the localStorage
+    JSON.parse(localStorage.getItem('tasks') || '[]'), //Start the app with the localStorage
   );
   const [task, setTask] = useState<TaskType | {}>({});
 
