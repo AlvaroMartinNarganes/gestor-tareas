@@ -11,7 +11,7 @@ const TaskList = ({ tasks, setTask, deleteTask }: Props) => {
       <h2 className='font-black text-xl text-center mb-5 '>
         {tasks && tasks.length ? 'Lista de tareas' : 'No hay tareas'}
       </h2>
-      <div className='md:h-screen md:overflow-y-scroll'>
+      <div className='md:h-screen md:overflow-y-auto'>
         {tasks &&
           tasks.map((task, i) => {
             return (
